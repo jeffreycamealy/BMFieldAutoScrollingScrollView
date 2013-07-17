@@ -102,7 +102,7 @@
     [self endEditing:YES];
     
     if (enlargedForEditing) {
-        [UIView animateWithDuration:0.1
+        [UIView animateWithDuration:0.2
                          animations:^{
                              self.contentSize = CGSizeMake(self.contentSize.width, self.contentSize.height-KeyboardHeight);
                          }];

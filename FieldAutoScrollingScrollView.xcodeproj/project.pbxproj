@@ -21,6 +21,8 @@
 		00A60F7B1797131800C11FC0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A60F5C1797131800C11FC0 /* Foundation.framework */; };
 		00A60F831797131800C11FC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00A60F811797131800C11FC0 /* InfoPlist.strings */; };
 		00A60F861797131900C11FC0 /* FieldAutoScrollingScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A60F851797131900C11FC0 /* FieldAutoScrollingScrollViewTests.m */; };
+		00A60F92179713A400C11FC0 /* FieldsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A60F90179713A400C11FC0 /* FieldsVC.m */; };
+		00A60F991797148300C11FC0 /* BMFieldAutoScrollingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A60F981797148300C11FC0 /* BMFieldAutoScrollingScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		00A60F821797131800C11FC0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		00A60F841797131900C11FC0 /* FieldAutoScrollingScrollViewTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldAutoScrollingScrollViewTests.h; sourceTree = "<group>"; };
 		00A60F851797131900C11FC0 /* FieldAutoScrollingScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FieldAutoScrollingScrollViewTests.m; sourceTree = "<group>"; };
+		00A60F8F179713A400C11FC0 /* FieldsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldsVC.h; path = SourceCode/FieldsVC.h; sourceTree = "<group>"; };
+		00A60F90179713A400C11FC0 /* FieldsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldsVC.m; path = SourceCode/FieldsVC.m; sourceTree = "<group>"; };
+		00A60F971797148300C11FC0 /* BMFieldAutoScrollingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BMFieldAutoScrollingScrollView.h; path = BMFieldAutoScrollingScrollView/BMFieldAutoScrollingScrollView.h; sourceTree = "<group>"; };
+		00A60F981797148300C11FC0 /* BMFieldAutoScrollingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BMFieldAutoScrollingScrollView.m; path = BMFieldAutoScrollingScrollView/BMFieldAutoScrollingScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +118,9 @@
 		00A60F601797131800C11FC0 /* FieldAutoScrollingScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				00A60F691797131800C11FC0 /* AppDelegate.h */,
-				00A60F6A1797131800C11FC0 /* AppDelegate.m */,
+				00A60F951797141900C11FC0 /* AppDelegate */,
+				00A60F94179713A900C11FC0 /* FieldsVC */,
+				00A60F961797142500C11FC0 /* FieldAutoScrollingScrollView */,
 				00A60F611797131800C11FC0 /* Supporting Files */,
 			);
 			path = FieldAutoScrollingScrollView;
@@ -150,6 +157,33 @@
 				00A60F811797131800C11FC0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		00A60F94179713A900C11FC0 /* FieldsVC */ = {
+			isa = PBXGroup;
+			children = (
+				00A60F8F179713A400C11FC0 /* FieldsVC.h */,
+				00A60F90179713A400C11FC0 /* FieldsVC.m */,
+			);
+			name = FieldsVC;
+			sourceTree = "<group>";
+		};
+		00A60F951797141900C11FC0 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				00A60F691797131800C11FC0 /* AppDelegate.h */,
+				00A60F6A1797131800C11FC0 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		00A60F961797142500C11FC0 /* FieldAutoScrollingScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				00A60F971797148300C11FC0 /* BMFieldAutoScrollingScrollView.h */,
+				00A60F981797148300C11FC0 /* BMFieldAutoScrollingScrollView.m */,
+			);
+			name = FieldAutoScrollingScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +297,8 @@
 			files = (
 				00A60F671797131800C11FC0 /* main.m in Sources */,
 				00A60F6B1797131800C11FC0 /* AppDelegate.m in Sources */,
+				00A60F92179713A400C11FC0 /* FieldsVC.m in Sources */,
+				00A60F991797148300C11FC0 /* BMFieldAutoScrollingScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,8 +29,7 @@
 
 - (void)layoutViews {
     scrollView = [BMFieldAutoScrollingScrollView.alloc initWithFrame:CGRectMake(0, 0, 320, 460)];
-    scrollView.bm_contentView.frame = CGRectMake(0, 0, 320, 900);
-    scrollView.contentSize = CGSizeMake(320, 900);
+    scrollView.contentSize = CGSizeMake(320, 700);
     scrollView.backgroundColor = UIColor.grayColor;
     [self.view addSubview:scrollView];
     

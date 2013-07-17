@@ -12,7 +12,10 @@
 #define SpacerOffset 10
 
 @interface BMFieldAutoScrollingScrollView () <UITextFieldDelegate, UIScrollViewDelegate>
-
+{
+    BOOL enlargedForEditing;
+    float prevContentOffsetY;
+}
 @end
 
 
@@ -22,9 +25,8 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _bm_contentView = UIView.new;
-        [self addSubview:_bm_contentView];
-        self.delegate = self;
+        [self setupBMContentView];
+        [self setupScrollViewDelegate];
     }
     return self;
 }
@@ -32,19 +34,35 @@
 
 #pragma mark - Private API
 
+- (void)setupBMContentView {
+    _bm_contentView = UIView.new;
+    [self addSubview:_bm_contentView];
+}
+
+- (void)setupScrollViewDelegate {
+    self.delegate = self;
+}
+
 - (void)scrollToField:(UITextField *)field {
-    CGRect rect = CGRectMake(0, field.frame.origin.y+KeyboardHeight,
-                             field.frame.size.width, field.frame.size.height);
-    [self scrollRectToVisible:rect animated:YES];
-//    float targetTextFieldBottomY = self.frame.size.height-KeyboardHeight-SpacerOffset;
-//    float contentOffsetY = CGRectGetMaxY(field.frame) - targetTextFieldBottomY;
-//    if (contentOffsetY < self.contentOffset.y) return;
-//    
-//    [self setContentOffset:CGPointMake(0, contentOffsetY) animated:YES];
+//    CGRect rect = CGRectMake(0, field.frame.origin.y+KeyboardHeight,
+//                             field.frame.size.width, field.frame.size.height);
+//    [self scrollRectToVisible:rect animated:YES];
+    
+    float targetTextFieldBottomY = self.frame.size.height-KeyboardHeight-SpacerOffset;
+    float contentOffsetY = CGRectGetMaxY(field.frame) - targetTextFieldBottomY;
+    if (contentOffsetY < self.contentOffset.y) return;
+
+    [self setContentOffset:CGPointMake(0, contentOffsetY) animated:YES];
+    prevContentOffsetY = contentOffsetY;
 }
 
 
 #pragma mark - Custom Setter
+
+- (void)setContentSize:(CGSize)contentSize {
+    [super setContentSize:contentSize];
+    self.bm_contentView.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+}
 
 - (void)setTextFields:(NSArray *)textFields {
     _textFields = textFields;
@@ -59,18 +77,21 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSUInteger index = [self.textFields indexOfObject:textField];
-    [self.autoScrollingDelegate textFieldDidReturn:textField];
     if (index == self.textFields.count-1) {
         [self.autoScrollingDelegate finalTextFieldDidReturn];
     } else {
-        UITextField *nextField = self.textFields[index+1];
-        [nextField becomeFirstResponder];
+        [self.textFields[index+1] becomeFirstResponder];
     }
     
+    [self.autoScrollingDelegate textFieldDidReturn:textField];
     return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (!enlargedForEditing) {
+        super.contentSize = CGSizeMake(self.contentSize.width, self.contentSize.height+KeyboardHeight);
+        enlargedForEditing = YES;
+    }
     [self scrollToField:textField];
 }
 
@@ -79,6 +100,14 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self endEditing:YES];
+    
+    if (enlargedForEditing) {
+        [UIView animateWithDuration:0.1
+                         animations:^{
+                             self.contentSize = CGSizeMake(self.contentSize.width, self.contentSize.height-KeyboardHeight);
+                         }];
+        enlargedForEditing = NO;
+    }
 }
 
 @end

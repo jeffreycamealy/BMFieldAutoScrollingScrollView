@@ -25,6 +25,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.showsVerticalScrollIndicator = NO;
         [self setupBMContentView];
         [self setupScrollViewDelegate];
     }
@@ -44,12 +45,9 @@
 }
 
 - (void)scrollToField:(UITextField *)field {
-//    CGRect rect = CGRectMake(0, field.frame.origin.y+KeyboardHeight,
-//                             field.frame.size.width, field.frame.size.height);
-//    [self scrollRectToVisible:rect animated:YES];
-    
     float targetTextFieldBottomY = self.frame.size.height-KeyboardHeight-SpacerOffset;
-    float contentOffsetY = CGRectGetMaxY(field.frame) - targetTextFieldBottomY;
+    CGRect normalizedFrame = [field convertRect:field.bounds toView:self.bm_contentView];
+    float contentOffsetY = CGRectGetMaxY(normalizedFrame) - targetTextFieldBottomY;
     if (contentOffsetY < self.contentOffset.y) return;
 
     [self setContentOffset:CGPointMake(0, contentOffsetY) animated:YES];
@@ -78,12 +76,16 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSUInteger index = [self.textFields indexOfObject:textField];
     if (index == self.textFields.count-1) {
-        [self.autoScrollingDelegate finalTextFieldDidReturn];
+        if ([self.autoScrollingDelegate respondsToSelector:@selector(finalTextFieldDidReturn)]) {
+            [self.autoScrollingDelegate finalTextFieldDidReturn];
+        }
     } else {
         [self.textFields[index+1] becomeFirstResponder];
     }
     
-    [self.autoScrollingDelegate textFieldDidReturn:textField];
+    if ([self.autoScrollingDelegate respondsToSelector:@selector(textFieldDidReturn:)]) {
+        [self.autoScrollingDelegate textFieldDidReturn:textField];
+    }
     return NO;
 }
 

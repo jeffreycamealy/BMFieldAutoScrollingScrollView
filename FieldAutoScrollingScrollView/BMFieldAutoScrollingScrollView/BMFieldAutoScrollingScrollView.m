@@ -54,6 +54,18 @@
     prevContentOffsetY = contentOffsetY;
 }
 
+- (void)dismissAutoScroll {
+    [self endEditing:YES];
+    
+    if (enlargedForEditing) {
+        [UIView animateWithDuration:0.2
+                         animations:^{
+                             self.contentSize = CGSizeMake(self.contentSize.width, self.contentSize.height-KeyboardHeight);
+                         }];
+        enlargedForEditing = NO;
+    }
+}
+
 
 #pragma mark - Custom Setter
 
@@ -101,15 +113,7 @@
 #pragma mark - Scrollview Delegate Method
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self endEditing:YES];
-    
-    if (enlargedForEditing) {
-        [UIView animateWithDuration:0.2
-                         animations:^{
-                             self.contentSize = CGSizeMake(self.contentSize.width, self.contentSize.height-KeyboardHeight);
-                         }];
-        enlargedForEditing = NO;
-    }
+    [self dismissAutoScroll];
 }
 
 @end

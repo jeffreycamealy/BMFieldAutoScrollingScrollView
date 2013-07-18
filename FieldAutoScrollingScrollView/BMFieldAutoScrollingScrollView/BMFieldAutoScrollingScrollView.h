@@ -29,4 +29,5 @@
 @property (weak) id<BMFieldAutoScrollingScrollViewDelegate> autoScrollingDelegate;
 @property UIView *bm_contentView;
 @property (nonatomic) NSArray *textFields;
+- (void)dismissAutoScroll;
 @end
